@@ -1,6 +1,14 @@
 package scapper;
-import com.jaunt.*;
+import com.jaunt.*; 
 import java.util.ArrayList;
+
+//import java.applet.Applet;
+//import java.awt.*;
+//import java.awt.image.*;
+//import java.io.*;
+//import java.net.URL;
+//import javax.imageio.*;
+
 
 
 public class scapper {
@@ -71,11 +79,9 @@ public class scapper {
 			System.out.println("The image list returned is :");
 			for(String i : this.list){
 				System.out.println(i);
-			}
-			
-
-
+			}	
+		}
 	}
-	}
+
 
 }

@@ -14,8 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 
-
-
 public class scapper {
 	//Scrapper class to pull /r/funny image links
 	public static class Scraper
@@ -64,10 +62,10 @@ public class scapper {
 	
 			this.setLink();//set the link
 			getLinks();
-			System.out.println("The image list returned is :");
-			for(String i : this.list){
-				System.out.println(i);
-			}	
+//			System.out.println("The image list returned is :");
+//			for(String i : this.list){
+//				System.out.println(i);
+//			}	
 		}
 	}
 	

@@ -5,29 +5,24 @@ import com.jaunt.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.ItemSelectable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
-
-import javax.annotation.PostConstruct;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 
 
 public class scapper {
-	//Scrapper class to pull /r/funny image links
+	//Scraper class to pull /r/funny image links
 	public static class Scraper
 	{
 		private UserAgent userAgent = new UserAgent();//create userAgent (headless browser)
 		private ArrayList<String> list = new ArrayList(); //house all the /r/funny img links
+		
 		Scraper(){
-		}
+		}//end constructor Scraper()
 		
 		void setLink(){
 			try{
@@ -35,13 +30,13 @@ public class scapper {
 			}
 			catch(JauntException e){
 				System.out.println("Connection timed out");
-			}
-		}
+			}//end try catch
+		}//end void setLink()
 		
 		ArrayList<String> getList(ArrayList<String> list){
 			list = this.list;
 			return list;
-		}
+		}//end ArrayList<String> getList(ArrayList<String> list)
 		
 		String getLinks(){
 			String page = this.userAgent.doc.innerHTML(); //save HTML to String obj
@@ -50,10 +45,9 @@ public class scapper {
 			int sentinal = 0;
 			String link = this.listing(page, startPos,sentinal);
 			return link;
-		}
+		}//end String getLinks()
 		
 		String listing(String page, int startPos, int sentinal){
-			
 			int endPos = page.indexOf('"', startPos); //find end position of index where img link end based on next " char
 			String link = page.substring(startPos, endPos);//retrieve img link based on start and end positions
 			this.list.add(link);
@@ -63,23 +57,17 @@ public class scapper {
 			sentinal++;
 			this.listing(page, startPos, sentinal);
 			return link;
-		}
+		}//end String listing(String page, int startPos, int sentinal)
+		
 		public void scapper(){
-	
 			this.setLink();//set the link
 			getLinks();
-
-		}
-	}
-	
+		}//end public void scapper()
+	}//end public static class Scraper
 	
 	//JFrame setup by subclass Scrape
 	static class Scrape extends JFrame {
-		static private String selectedString(ItemSelectable is) {
-		    Object selected[] = is.getSelectedObjects();
-		    return ((selected.length == 0) ? "null" : (String) selected[0]);
-		  }
-	
+
 		Scrape(){
 			super("Scaper"); //calls JFrame contractor to set it up along with title
 			setLayout(new FlowLayout()); //set layout to flow
@@ -99,17 +87,8 @@ public class scapper {
 			JButton scrape = new JButton("Scrape"); //Scrape button made
 			add(scrape,BorderLayout.CENTER); //add button to jframe instance	
 			
-
 			JComboBox combo = new JComboBox();
 			add(combo);
-			ItemListener itemListener = new ItemListener(){
-				public void itemStateChanged(ItemEvent itemEvent){
-					int state = itemEvent.getStateChange();
-					if(state==ItemEvent.SELECTED) System.out.println("Link: " + itemEvent.getItem());	
-				}
-			};
-			combo.addItemListener(itemListener);
-
 			MyListener listener = new MyListener(combo); //subclass of actionlistener
 			scrape.addActionListener(listener);//call MyListener(JTextArea text) constructor
 			
@@ -121,16 +100,14 @@ public class scapper {
 		//actionlistener implemented by mylistener
 		public class MyListener implements ActionListener{
 		
-
 			private JComboBox combo;
 			String link = "";//Listener instance link
 			ArrayList <String> listing = new ArrayList();//ArrayList to house Scraper links
 			
-			//call MyListener with JTextArea  and set text
-
+			//call MyListener with JComboBox  and set combo
 			public MyListener(JComboBox combo){
 				this.combo = combo;
-			}
+			}//end public MyListener(JComboBox combo)
 			
 			//implement actionlistener on button click event
 			public void actionPerformed(ActionEvent e){
@@ -138,17 +115,13 @@ public class scapper {
 				test.scapper();//run scraper
 				this.listing = test.getList(this.listing);//MyListener given links from scraper
 				
-
 				for(String i: this.listing){
 					this.link+= i + "\n";
 					this.combo.addItem(i);
-				}
-				
-				
+				}//end for(String i: this.listing)
 
-				
-			}
-		}
+			}//end public void actionPerformed(ActionEvent e)
+		}//end public class MyListener implements ActionListener
 		
-	}
-}
+	}//end static class Scrape extends JFrame
+}//end public class scapper

@@ -69,8 +69,6 @@ public class loadImages {
 
 		ItemListener itemListener = new ItemListener(){
 			public void itemStateChanged(ItemEvent itemEvent){
-				int state = itemEvent.getStateChange();
-				if(state==ItemEvent.SELECTED) System.out.println("Link: " + itemEvent.getItem());
 				loadImage((String)itemEvent.getItem());
 			}//end public void itemStateChanged(ItemEvent itemEvent)
 		};//end ItemListener

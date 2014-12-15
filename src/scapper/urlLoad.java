@@ -132,13 +132,14 @@ public class urlLoad {
 			public ImageComponent(URL url) throws IOException{
 				img = ImageIO.read(url);
 				setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
+//				setPreferredSize(new Dimension(500,500));
 			}//end public ImageComponent(URL url) throws IOException
 			
 			@Override protected void paintComponent(Graphics g){
+				
 				super.paintComponent(g);
 				g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), this);
-		        revalidate();
-		        repaint();
+
 			}//end @Override protected void paintComponent(Graphics g)
 		}//end class ImageComponent extends JComponent
 		
@@ -146,12 +147,29 @@ public class urlLoad {
 			System.out.println("PIC IS " + pic);
 
 			this.pane3.removeAll();
+
+	      
+
 			try 
 			{
 				
+//				URL url = new URL(pic);
+//				ImageComponent img = new ImageComponent(url);
+//				this.pane3.add(new JScrollPane(img));
+//		        this.jp1.revalidate();
+//		        this.jp1.repaint();
+				
+
 				URL url = new URL(pic);
 				ImageComponent img = new ImageComponent(url);
-				this.pane3.add(new JScrollPane(img));
+				JScrollPane scrollPane = new JScrollPane(img);
+				scrollPane.setPreferredSize(new Dimension(500,500));
+				//this.pane3.setPreferredSize(new Dimension(500,500));
+				this.pane3.add(scrollPane);
+		        this.jp1.revalidate();
+		        this.jp1.repaint();
+				
+				
 			} //end try
 			catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
